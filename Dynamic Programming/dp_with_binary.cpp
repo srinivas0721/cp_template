@@ -8,7 +8,13 @@ const int MOD = 1e9 + 7;
 
 
 //https://cses.fi/problemset/task/1140
+// You're not maximizing profit during the binary search, you're:
 
+// Using binary search to find time-compatible projects
+
+// Using dp[] to find maximum profit ending at those times
+
+// Comparing both take and not take options to build optimal dp[i]
 signed main() {
     ios::sync_with_stdio(false); cin.tie(NULL);
     
