@@ -101,35 +101,59 @@ struct LazySGT {
 };
 
 // Range minimum with range increment update
+// Node struct for Range Minimum Query with Range Increment Updates
 struct Node {
-    ll val;
+    ll val; // stores the minimum value in the segment
+
     Node() {
+        // Identity element for min operation: set to maximum possible value
         val = LLONG_MAX;
     }
+
     Node(ll v) {
+        // Initialize node with a single element value
         val = v;
     }
+
+    // Merge two child nodes to update the current node
+    // For RMQ, this is taking the minimum of the two child nodes
     void merge(Node &l, Node &r) {
         val = min(l.val, r.val);
     }
 };
 
+// Update struct representing a range increment operation
 struct Update {
-    ll val; // increment value
+    ll val; // increment value to add to the segment
+
     Update() {
-        val = 0; // 0 means no increment
+        // Identity update means "no change"
+        val = 0; // zero increment means no update
     }
+
     Update(ll v) {
+        // Initialize with actual increment value
         val = v;
     }
+
+    // Apply this update to a node's value for the segment [start, end]
     void apply(Node &a, int start, int end) {
-        if(val == 0) return;
+        if(val == 0) 
+            return; // no change if increment is zero
+
+        // Since it's an increment update, add 'val' to the node's minimum value
+        // Because the node represents minimum in the segment, and all elements increase by val,
+        // the minimum increases by val as well
         a.val += val;
     }
+
+    // Combine this update with a new incoming update
+    // Since these are increments, they accumulate additively
     void combine(Update &new_update, int start, int end) {
-        val += new_update.val; // increments accumulate
+        val += new_update.val;
     }
 };
+
 
 int main() {
     ios::sync_with_stdio(false);

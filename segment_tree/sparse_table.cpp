@@ -49,7 +49,7 @@ signed main() {
         while (q--) {
             int l, r;
             cin >> l >> r;
-            cout << st.query(l, r) << endl;
+            cout << st.query(l-1, r-1) << endl;
         }
     }
 

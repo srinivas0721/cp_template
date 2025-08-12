@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+//https://cses.fi/problemset/task/1651
+// thiz iz not point update range query but range query and point update
+
+
 struct FenwickTree {
     int n;
     vector<long long> bit;
