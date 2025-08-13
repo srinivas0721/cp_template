@@ -94,7 +94,7 @@ int main() {
     };
     FenwickTree2D fenw2d(arr2d);
 
-    cout << "2D Fenwick Tree Example:\n";
+    cout << "2D Fenwick Tree Example:\n";// format (y1,x1,y2,x2)
     cout << "Sum of submatrix [(0,0) to (2,2)]: " << fenw2d.query(0, 0, 2, 2) << "\n"; // 45 (sum all)
     cout << "Sum of submatrix [(1,1) to (2,2)]: " << fenw2d.query(1, 1, 2, 2) << "\n"; // 5+6+8+9 = 28
 
