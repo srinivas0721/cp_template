@@ -5,48 +5,39 @@ using namespace std;
 #define endl '\n' 
 #define INF = LLONG_MAX>>1
 const int MOD = 1e9 +7;
-class dsu{
-    vector<int>parent,size,rank;
+class dsu {
+    vector<int> parent, size, rank;
 public:
-    dsu(int n){
-        for(int i=0;i<=n;i++){
-            parent.push_back(i);
-            size.push_back(i);
-            rank.push_back(0);
-        }
+    dsu(int n) {
+        parent.resize(n+1);
+        size.assign(n+1, 1);
+        rank.assign(n+1, 0);
+        for(int i=0;i<=n;i++) parent[i]=i;
     }
-    int findpar(int node){
-        if(parent[node]==node)
-        return node;
-        return parent[node]=findpar(parent[node]);
+    int findpar(int node) {
+        if(parent[node]==node) return node;
+        return parent[node] = findpar(parent[node]);
     }
     void Unionsize(int u,int v){
-        int pu = findpar(u);
-        int pv=findpar(v);
-        if(pu==pv)
-        return;
-        if(size[pu]<size[pv]){
+        int pu = findpar(u), pv = findpar(v);
+        if(pu==pv) return;
+        if(size[pu] < size[pv]){
             parent[pu]=pv;
             size[pv]+=size[pu];
-        }
-        else{
+        } else {
             parent[pv]=pu;
             size[pu]+=size[pv];
         }
     }
     void UnionRank(int u,int v){
-        int pu = findpar(u);
-        int pv=findpar(v);
-        if(pu==pv)
-        return;
+        int pu = findpar(u), pv = findpar(v);
+        if(pu==pv) return;
         if(rank[pu]==rank[pv]){
             parent[pu]=pv;
-            rank[pu]++;
-        }
-        else if(rank[pu]<rank[pv]){
+            rank[pv]++;
+        } else if(rank[pu]<rank[pv]){
             parent[pu]=pv;
-        }
-        else{
+        } else {
             parent[pv]=pu;
         }
     }
