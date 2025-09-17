@@ -42,6 +42,8 @@ public:
         }
     }
 };
+// https://codeforces.com/problemset/problem/25/D
+// check this submission
 signed main (){
     ios::sync_with_stdio(false);cin.tie(NULL);
     int n,m;

@@ -61,7 +61,7 @@ void dijkstra_pq(int s, int n, vector<long long> &dist, vector<int> &parent, vec
 // ---------------- Bellman-Ford (your style, with early break) ----------------
 bool bellman_ford(int n, int src, vector<vector<pair<int,long long>>> &adj,
                   vector<long long> &dist, vector<int> &parent, set<int> &negCycle) {
-    dist.assign(n, INF);
+    dist.assign(n, 0);
     parent.assign(n, -1);
     dist[src] = 0;
 
@@ -89,16 +89,25 @@ bool bellman_ford(int n, int src, vector<vector<pair<int,long long>>> &adj,
         if (!changed) break; // 🔥 stop if no update
     }
 
-    // Check negative cycles
+    // Check negative cycles and collect all nodes in the cycle
     bool hasNeg = false;
     for (auto ed : e) {
         int u = ed.second.first;
         int v = ed.second.second;
         long long w = ed.first;
         if (dist[u] != INF && dist[v] > dist[u] + w) {
-            dist[v] = dist[u] + w;
-            negCycle.insert(v);
             hasNeg = true;
+
+            // move n steps to ensure inside cycle
+            int x = v;
+            for (int i = 0; i < n; i++) x = parent[x];
+
+            // collect all nodes in the cycle
+            int cur = x;
+            while (negCycle.find(cur) == negCycle.end()) {
+                negCycle.insert(cur);
+                cur = parent[cur];
+            }
         }
     }
 
